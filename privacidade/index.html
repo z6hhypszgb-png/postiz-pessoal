@@ -15,7 +15,7 @@
 </nav>
 
 <h1>Política de Privacidade</h1>
-<p class="muted">Aplicativo OAuth “Postiz” — integração pessoal de publicação · Última atualização: 22 de outubro de 2026</p>
+<p class="muted">Aplicativo OAuth “Postiz” — integração pessoal de publicação · Última atualização: 22 de outubro de 2026 (armazenamento em nuvem ativado)</p>
 
 <h2>1. Quem é o responsável</h2>
 <p>O responsável é <strong>João Gabriel Gomes</strong>, pessoa física, titular do canal do YouTube <strong>João Gabriel Gomes | Alta Perfumaria</strong> (<a href="https://www.youtube.com/@joaogabrielgomes">@joaogabrielgomes</a>). Contato: <a href="mailto:joaogabriel.gs@hotmail.com">joaogabriel.gs@hotmail.com</a>.</p>
@@ -42,7 +42,7 @@
 <ul>
   <li><strong>Credenciais de autorização OAuth</strong> (token de acesso e token de renovação) da conta Google do titular.</li>
   <li><strong>Dados do canal:</strong> identificador, nome, nome de usuário (@) e imagem de perfil.</li>
-  <li><strong>Conteúdo a publicar:</strong> arquivos de vídeo, título, descrição, tags, configuração de privacidade, data e horário do agendamento e o resultado de cada publicação.</li>
+  <li><strong>Conteúdo a publicar:</strong> arquivos de vídeo (armazenados na Cloudflare R2, ver seção 5), título, descrição, tags, configuração de privacidade, data e horário do agendamento e o resultado de cada publicação.</li>
   <li><strong>Dados de acesso ao painel:</strong> e-mail e senha da conta administrativa local do Postiz (a senha é guardada pelo software em formato protegido).</li>
   <li><strong>Registros técnicos</strong> de funcionamento do software, mantidos localmente.</li>
 </ul>
@@ -50,12 +50,13 @@
 
 <h2>5. Onde os dados ficam</h2>
 <p>Os dados ficam no computador do titular, no banco de dados e nos volumes do Postiz executados em contêineres Docker, e em cópias de segurança locais. Não afirmo criptografia dos tokens no banco além da proteção oferecida pelo próprio software e pelo sistema do computador (por exemplo, a proteção do disco e da conta de usuário).</p>
-<p><strong>Previsto, ainda não ativo:</strong> o titular pretende usar o armazenamento Cloudflare R2 para guardar os vídeos antes da publicação. Quando isso ocorrer, os arquivos de vídeo agendados ficarão armazenados na Cloudflare e acessíveis por um endereço público, e esta política será atualizada.</p>
+<p><strong>Armazenamento de mídia na Cloudflare R2 (ativo desde 22 de outubro de 2026):</strong> os arquivos de mídia enviados ao Postiz, como os vídeos a publicar e as imagens de perfil dos canais conectados, ficam armazenados em um bucket da Cloudflare R2 da conta do titular. O bucket é acessível por um endereço público de teste (<code>r2.dev</code>) e, por isso, <strong>qualquer pessoa que souber o endereço exato de um arquivo consegue abri-lo, sem senha</strong>. Os nomes dos arquivos são gerados pelo software e não há listagem pública do conteúdo do bucket, mas isso não é uma garantia de sigilo. Gravar e apagar arquivos exige uma chave de acesso privada, restrita a esse bucket. O endereço <code>r2.dev</code> é, segundo a Cloudflare, destinado a testes e pode ser trocado por um domínio próprio no futuro, o que será refletido aqui. Não há exclusão automática: os arquivos permanecem até o titular apagá-los. O tratamento pela Cloudflare segue a <a href="https://www.cloudflare.com/privacypolicy/">Política de Privacidade da Cloudflare</a>.</p>
 
 <h2>6. Com quem os dados são compartilhados</h2>
 <ul>
   <li><strong>Google/YouTube:</strong> os vídeos e metadados são enviados à API do YouTube para realizar a publicação autorizada pelo titular.</li>
-  <li>Os dados <strong>não são vendidos</strong>, não são usados para publicidade e não são transferidos a terceiros, exceto o necessário para operar o serviço descrito acima (Google/YouTube e, quando ativado, a Cloudflare para armazenamento) ou se a lei exigir.</li>
+  <li><strong>Cloudflare:</strong> armazena os arquivos de mídia enviados ao Postiz, conforme descrito na seção 5.</li>
+  <li>Os dados <strong>não são vendidos</strong>, não são usados para publicidade e não são transferidos a terceiros, exceto o necessário para operar o serviço descrito acima (Google/YouTube e Cloudflare para armazenamento) ou se a lei exigir.</li>
   <li>Nenhuma ferramenta de análise, publicidade ou rastreamento foi configurada nesta instalação.</li>
 </ul>
 
@@ -68,7 +69,7 @@
   <li>Os tokens e os dados do canal permanecem enquanto o canal estiver conectado ao Postiz.</li>
   <li><strong>Revogar o acesso:</strong> em <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>, o titular remove o acesso do aplicativo “Postiz” à conta Google a qualquer momento.</li>
   <li><strong>Desconectar:</strong> remover o canal no painel do Postiz encerra o uso. O software pode manter, no banco de dados, o registro da integração marcado como excluído.</li>
-  <li><strong>Exclusão completa:</strong> o titular apaga os volumes e as cópias de segurança do Postiz no próprio computador, o que elimina os dados locais.</li>
+  <li><strong>Exclusão completa:</strong> o titular apaga os volumes e as cópias de segurança do Postiz no próprio computador, o que elimina os dados locais, e apaga os arquivos do bucket no painel da Cloudflare, o que elimina as cópias de mídia armazenadas lá.</li>
   <li>Vídeos já publicados no YouTube seguem as regras do YouTube e podem ser removidos pelo titular no YouTube Studio.</li>
 </ul>
 
@@ -82,7 +83,7 @@
 <p>Este site é estático e hospedado no GitHub Pages. Não usa cookies nem ferramentas de análise. O GitHub, como provedor da hospedagem, pode registrar dados técnicos de acesso (como endereço IP) conforme a <a href="https://docs.github.com/pt/site-policy/privacy-policies/github-general-privacy-statement">Declaração de Privacidade do GitHub</a>.</p>
 
 <h2>12. Alterações</h2>
-<p>Esta política pode ser atualizada, por exemplo quando o armazenamento em nuvem for ativado ou quando novas plataformas forem conectadas. A data de atualização fica no topo da página.</p>
+<p>Esta política pode ser atualizada, por exemplo quando o endereço público do armazenamento mudar ou quando novas plataformas forem conectadas. A data de atualização fica no topo da página.</p>
 
 <h2>13. Contato</h2>
 <p>Dúvidas ou pedidos sobre dados: <a href="mailto:joaogabriel.gs@hotmail.com">joaogabriel.gs@hotmail.com</a>.</p>
